@@ -40,14 +40,14 @@ def selection(popu,fit):
         index = bisect_right(wheel, random.random())
         popu_select.append(popu[index])
     return popu_select
-    
+
 
 def crossover(popu,pc):
     cross_popu = []
     while True:
         mother,father = popu[random.randrange(len(popu))],popu[random.randrange(len(popu))]
         if mother == father:
-            continue    
+            continue
         if random.random() <= pc:
             index = random.randrange(len(popu[0]))
             mother[index:],father[index:] = father[index:],mother[index:]
@@ -73,7 +73,7 @@ def run():
     pm = 0.01
     population = initial()
     Max = []
-    for i in range(1000):
+    for i in range(10000):
         A = []
         B = []
         for each in population:
@@ -84,7 +84,7 @@ def run():
         cal_fit = fitness(A,B)
         step1 = selection(population,cal_fit)
         step2 = crossover(step1,pc)
-        step3 = mutation(step2,pm)        
+        step3 = mutation(step2,pm)
         Max.append(max(cal_fit))
     print(max(Max))
 
