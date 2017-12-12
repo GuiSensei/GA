@@ -1,5 +1,12 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Dec 10 18:24:52 2017
+
+@author: Francis
+"""
+
 # Genetic Algorithm
-#max f(a,b)=21.5+ a*sin(4*pi*a)+b*sin(20*pi*b)
+# max f(a,b)=21.5+ a*sin(4*pi*a)+b*sin(20*pi*b)
 #    -3.0 <= a <= 12.1
 #    4.1 <= b <=5.8
 

@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Dec 11 12:24:52 2017
+Created on Tue Dec 12 22:24:52 2017
 
 @author: Francis
 """
 
 
-
 # Genetic Algorithm
-#max f(a,b)=21.5+ a*sin(4*pi*a)+b*sin(20*pi*b)
+# max f(a,b)=21.5+ a*sin(4*pi*a)+b*sin(20*pi*b)
 #    -3.0 <= a <= 12.1
 #    4.1 <= b <=5.8
 
@@ -50,6 +49,24 @@ def fitness(popu):
          Y.append(y)
     return Y
 
+
+def elit(popu,fit,n=2):
+    Elite = []
+    popu = list(popu)
+    fit = list(fit)
+    for i in range(n):
+        Elite.append(popu.pop(fit.index(max(fit))))
+        fit.pop(fit.index(max(fit)))
+    return tuple(Elite)
+    
+
+def removebad(popu,fit,n=2):
+    popu = list(popu)
+    fit = list(fit)
+    for i in range(n):
+        popu.pop(fit.index(min(fit)))
+        fit.pop(fit.index(min(fit)))
+    return tuple(popu)
 
 def selection(popu,fit):
     sum_fit = sum(fit)
@@ -102,27 +119,23 @@ def run(n=1):
     pc = 0.35   #交叉概率
     pm = 0.05   #变异概率
     population = initial(ind_num,chrom_length,*code)
-    cal_fit = fitness(population)
-    max_fit.append(max(cal_fit))
-    max_ind.append(population[cal_fit.index(max(cal_fit))])
-    for i in range(n):        
+    cal_fit = fitness(population)   
+    for i in range(n):
+        step0 = elit(population,cal_fit,1) #保留1个精英
         step1 = selection(population,cal_fit)
         step2 = crossover(step1,pc)
         step3 = mutation(step2,pm)
-        population = step3
+        step4 = removebad(step3,fitness(step3),1) #去除1个劣解
+        population = step4 + step0
         cal_fit = fitness(population)
-        max_fit.append(max(cal_fit))
-        max_ind.append(population[cal_fit.index(max(cal_fit))])
         plt.plot(i,max(cal_fit),marker='.', mec='r',label="max")
-    
-    optimal_result = max(max_fit)
-    optimal_index = max_fit.index(optimal_result)
-    optimal_individual = max_ind[optimal_index]
+    optimal_result = max(cal_fit)
+    optimal_index = cal_fit.index(optimal_result)
+    optimal_individual = population[optimal_index]
     a = decode(-3.0,12.1,optimal_individual[:18],18)
     b = decode(4.1,5.8,optimal_individual[18:],15)
     print("最优解：",optimal_result)    
     print("其值为：a=",a,'b=',b)
-    print("最优代：",optimal_index)
     plt.show()
     plt.close("all")
 
