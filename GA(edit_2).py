@@ -111,8 +111,7 @@ def run(n=1):
     '''
     n: the number of iterations
     '''
-    max_fit = []
-    max_ind = []
+
     ind_num = 20 #个体数
     chrom_length = 33 #染色体长度
     code = [0,1]  #编码
