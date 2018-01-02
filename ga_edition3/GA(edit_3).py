@@ -3,7 +3,14 @@
 
 '''
 # Genetic Algorithm
-参数修改：只需要修改run和fitness中的参数
+参数修改：一般只需要修改run()中的
+                indv_number = 20   #种群中个体数
+                ranges=[(-3.0,12.1),(4.1,5.8)] #取值范围
+                eps = 0.0001    #精度要求
+                pc = 0.35       #交叉概率
+                pm = 0.15       #变异概率
+        和fitness()中的适应度函数
+
 变量：a,b
 目标： max f(a,b)=21.5+ a*sin(4*pi*a)+b*sin(20*pi*b)
 约束：   -3.0 <= a <= 12.1
