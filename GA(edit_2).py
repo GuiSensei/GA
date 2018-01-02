@@ -102,7 +102,7 @@ def mutation(popu,pm):
         each = list(each)
         if random.random() <= pm:
             index = random.randrange(len(each))
-            each[index] = int(not each[index])
+            each[index] = (each[index])^1
         mut_popu.append(tuple(each))
     return tuple(mut_popu)
 
